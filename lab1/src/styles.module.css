@@ -1,0 +1,15 @@
+form {
+    background-color: #baecee;
+    width: 100%;
+    text-align: center;
+}
+
+input {
+    font-size: large;
+    color: rgb(206, 63, 118);
+}
+
+label {
+    background-color: dodgerblue;
+    color: white;
+}
