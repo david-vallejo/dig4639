@@ -13,3 +13,8 @@ label {
     background-color: dodgerblue;
     color: white;
 }
+
+errorDisplay {
+    color: red;
+    font-size: large;
+}
