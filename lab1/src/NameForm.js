@@ -12,17 +12,17 @@ class NameForm extends React.Component {
   /*Hello Professor this is where I need help please */
   handleChange(event) {
     this.name = event.target.value;
-    if (this.name != null) {
-      function checkForError(name) {
-        console.log(this);
-        var errorCheck = /abcd/;
-        return alert.error;
-      }
-    }
   }
 
   handleSubmit(event) {
     alert("A name was submitted: " + this.state.value);
+    if (this.state.value != null) {
+      function checkForError() {
+        console.log(this.state.value);
+        var error = /[^a-zA-Z]/.this.state.value;
+        return alert.error;
+      }
+    }
     event.preventDefault();
   }
 
