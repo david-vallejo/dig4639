@@ -32,19 +32,61 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.getStartedText}>Cats are amazing</Text>
             <FlatList
               data={[
-                { key: "cat1", image: require("../assets/images/cat1.png") },
-                { key: "cat2", image: require("../assets/images/cat2.png") },
-                { key: "cat3", image: require("../assets/images/cat3.png") },
-                { key: "cat4", image: require("../assets/images/cat4.png") },
-                { key: "cat5", image: require("../assets/images/cat5.png") },
-                { key: "cat6", image: require("../assets/images/cat6.png") },
-                { key: "cat7", image: require("../assets/images/cat7.png") }
+                {
+                  key: "cat1",
+                  image: require("../assets/images/cat1.png"),
+                  title: "cat one",
+                  description: "this is a cat"
+                },
+                {
+                  key: "cat2",
+                  image: require("../assets/images/cat2.png"),
+                  title: "cat two",
+                  description: "this is a cat"
+                },
+                {
+                  key: "cat3",
+                  image: require("../assets/images/cat3.png"),
+                  title: "cat three",
+                  description: "this is a cat"
+                },
+                {
+                  key: "cat4",
+                  image: require("../assets/images/cat4.png"),
+                  title: "cat four",
+                  description: "this is a cat"
+                },
+                {
+                  key: "cat5",
+                  image: require("../assets/images/cat5.png"),
+                  title: "cat five",
+                  description: "this is a cat"
+                },
+                {
+                  key: "cat6",
+                  image: require("../assets/images/cat6.png"),
+                  title: "cat six",
+                  description: "this is a cat"
+                },
+                {
+                  key: "cat7",
+                  image: require("../assets/images/cat7.png"),
+                  title: "cat seven",
+                  description: "this is a cat"
+                }
               ]}
-              keyExtractor={this._keyExtractor}
+              keyExtractor={obj => {
+                return obj.key;
+              }}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={event => {
-                    console.log(item.key);
+                    this.props.navigation.navigate("Details", {
+                      otherParam: this._keyExtractor,
+                      title: item.title,
+                      image: item.image,
+                      description: item.description
+                    });
                   }}
                 >
                   <Image
@@ -60,7 +102,38 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+class DetailsScreen extends React.Component {
+  render() {
+    /* 2. Get the param, provide a fallback value if not available */
+    const { navigation } = this.props;
+    const itemId = navigation.getParam("itemId", "NO-ID");
+    const otherParam = navigation.getParam("otherParam", "some default value");
 
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Details Screen</Text>
+        <Text>itemId: {JSON.stringify(itemId)}</Text>
+        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+        <Button
+          title="Go to Details... again"
+          onPress={() =>
+            this.props.navigation.push("Details", {
+              itemId: Math.floor(Math.random() * 100)
+            })
+          }
+        />
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate("Home")}
+        />
+        <Button
+          title="Go back"
+          onPress={() => this.props.navigation.goBack()}
+        />
+      </View>
+    );
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

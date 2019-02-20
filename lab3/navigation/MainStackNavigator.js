@@ -6,11 +6,13 @@ import {
 
 import HomeScreen from "../screens/HomeScreen";
 import LinksScreen from "../screens/LinksScreen";
+import Details from "../screens/DetailsScreen";
 
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Detail: LinksScreen
+    LinksScreen: LinksScreen,
+    Details: DetailsScreen
   },
   { initialRouteName: "Home" }
 );
