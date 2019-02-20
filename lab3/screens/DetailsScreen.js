@@ -1,7 +1,11 @@
 import React from "react";
 import { Image, StyleSheet, Text, View, StatusBar, Button } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
+import { Dimensions } from "react-native";
+import { red, underline } from "ansi-colors";
 
+var width = Dimensions.get("window").width; //full width
+var height = Dimensions.get("window").height; //full height
 export default class DetailsScreen extends React.Component {
   render() {
     /* 2. Get the param, provide a fallback value if not available */
@@ -21,8 +25,21 @@ export default class DetailsScreen extends React.Component {
           justifyContent: "center"
         }}
       >
-        <Text>Cat title : {title}</Text>
-        <Image source={newImage} />
+        <Text
+          style={{
+            paddingTop: 20,
+            fontSize: 20,
+            lineHeight: 2,
+            flex: 1
+          }}
+        >
+          Cat title : {title}
+        </Text>
+        <Image
+          resizeMode="contain"
+          source={newImage}
+          style={{ width: "90%", height: "40%" }}
+        />
         <Button
           title="Go to Details... again"
           onPress={() =>
@@ -47,12 +64,12 @@ export default class DetailsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#ff5e57"
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000",
+    borderWidth: 1,
+
+    flexDirection: "column"
   },
-  image: {
-    flex: 1,
-    width: 100,
-    height: 10
-  }
+  text: { fontSize: 60 }
 });
