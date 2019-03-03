@@ -1,20 +1,19 @@
 form {
-    background-color: #baecee;
+    background-color: #eab543;
     width: 100%;
+    height: 100%;
     text-align: center;
 }
 
 input {
-    font-size: large;
-    color: rgb(206, 63, 118);
+    font-size: xx-large;
+    color: snow;
 }
 
 label {
-    background-color: dodgerblue;
+    padding-top: 50%;
     color: white;
+    font-size: xx-large;
+    min-height: 80vh;
 }
 
-errorDisplay {
-    color: red;
-    font-size: large;
-}
