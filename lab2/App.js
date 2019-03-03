@@ -1,74 +1,116 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   StyleSheet,
+  TouchableOpacity,
   Text,
   View,
   TextInput,
-  Button,
-  Alert,
-  Image
+  Button
 } from "react-native";
 
-export default class HomeActivity extends Component {
+var username;
+
+export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      TextInputValue: ""
-    };
+    this.state = { value: "", usersInput: "", error: "" };
+
+    this.onChange = this.onChange.bind(this);
+    this.onPress = this.onPress.bind(this);
   }
 
-  click = () => {
-    const { TextInputValue } = this.state;
-    Alert.alert(TextInputValue);
-  };
+  onChange(event) {
+    username = event;
+  }
 
+  onPress() {
+    this.validate();
+  }
+  validate() {
+    let usersInput = "";
+    let error = "";
+
+    if (!username.match(/^[a-zA-Z\s]*$/)) {
+      error = "Please use letters only!";
+    } else {
+      usersInput = "Hello, " + username + "  it's great to see you!";
+    }
+    if (error) {
+      this.setState({ error });
+      return false;
+    } else if (usersInput) {
+      this.setState({ usersInput });
+      return false;
+    }
+    return true;
+  }
   render() {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={require("./smiley_sunglasses_emoji.png")}
-          style={styles.firstImage}
+    if (this.state.usersInput) {
+      return (
+        <View
+          style={styles.container}
+          flexDirection="column"
+          alignItems="stretch"
         >
-          {this.props.children}
-        </Image>
-
-        <Text style={styles.headerText}>Hello Hows It going?</Text>
-        <TextInput
-          style={{
-            height: 45,
-            width: "95%",
-            borderColor: "gray",
-            borderWidth: 2,
-            color: "snow"
-          }}
-          placeholder=" Enter Your First Name"
-          onChangeText={TextInputValue => this.setState({ TextInputValue })}
-        />
-
-        <View style={styles.buttonStyle}>
-          <Button onPress={this.click} title="SUBMIT" color="white" />
+          <Text style={styles.appText}>{this.state.usersInput}</Text>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return (
+        <View
+          style={styles.container}
+          flexDirection="column"
+          alignItems="stretch"
+        >
+          <View>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={this.onChange}
+              placeholder="What is your first name"
+            />
+          </View>
+          <TouchableOpacity style={styles.buttonStyle} onPress={this.onPress}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+          <Text style={styles.errors}>{this.state.error}</Text>
+        </View>
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    fontSize: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#2C3A47"
+  buttonText: {
+    color: "white",
+    fontSize: "xx-large"
   },
   buttonStyle: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "dodgerblue",
-    height: 75,
-    margin: 30,
-    width: 200,
-    borderRadius: 50
+    backgroundColor: "lightcoral",
+    height: 50,
+    margin: 5,
+    width: 100,
+    borderRadius: 50,
+    fontColor: "snow"
+  },
+  textInput: {
+    height: 65,
+    width: "95%",
+    borderColor: "snow",
+    borderWidth: 1,
+    fontSize: "xx-large",
+    color: "snow"
+  },
+  appText: {
+    fontSize: "xx-large",
+    textAlign: "center",
+    color: "snow"
+  },
+  errors: {
+    fontSize: "xx-large",
+    color: "red",
+    textAlign: "center"
   },
   headerText: {
     fontSize: 20,
@@ -77,10 +119,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "darkcyan"
   },
-  firstImage: {
-    height: 40,
-    width: 40,
+  container: {
+    flex: 1,
+    fontSize: 60,
     justifyContent: "center",
-    alignContent: "center"
+    alignItems: "center",
+    backgroundColor: "#2C3A47",
+    color: "snow"
+  },
+  input: {
+    color: "snow"
   }
 });
