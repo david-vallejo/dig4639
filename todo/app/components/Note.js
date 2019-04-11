@@ -13,7 +13,7 @@ export default class note extends React.Component {
           onPress={this.props.deleteMethod}
           style={styles.noteDelete}
         >
-          <FontAwesome name="trash" size={32} color="yellow" />
+          <FontAwesome name="trash" size={32} color="#25CCF7" />
           <Text style={styles.noteDeleteText} />
         </TouchableOpacity>
       </View>
@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingRight: 100,
     borderBottomWidth: 2,
-    borderBottomColor: "yellow",
+    borderBottomColor: "#25CCF7",
     borderTopWidth: 2,
-    borderTopColor: "yellow"
+    borderTopColor: "#25CCF7"
   },
   noteText: {
     paddingLeft: 20,

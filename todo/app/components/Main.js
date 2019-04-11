@@ -19,7 +19,7 @@ export default class Main extends React.Component {
     };
   }
   render() {
-    let notes = this.state.noteArray.map((val, key) => {
+    const notes = this.state.noteArray.map((val, key) => {
       return (
         <Note
           key={key}
@@ -33,7 +33,7 @@ export default class Main extends React.Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}> To Do list </Text>
-          <FontAwesome name="pencil" size={42} color="yellow" />
+          <FontAwesome name="pencil" size={42} color="#25CCF7" />
         </View>
         <ScrollView style={styles.scrollContainer}>{notes}</ScrollView>
         <View style={styles.footer}>
@@ -42,14 +42,14 @@ export default class Main extends React.Component {
             onChangeText={noteText => this.setState({ noteText })}
             value={this.state.noteText}
             placeholder="What To do.. "
-            placeholderTextColor="yellow"
+            placeholderTextColor="#25CCF7"
           />
         </View>
         <TouchableOpacity
           onPress={this.addNote.bind(this)}
           style={styles.addButton}
         >
-          <FontAwesome name="plus-circle" size={82} color="yellow" />
+          <FontAwesome name="plus-circle" size={82} color="#25CCF7" />
         </TouchableOpacity>
       </View>
     );
@@ -76,6 +76,7 @@ export default class Main extends React.Component {
   deleteNote(key) {
     this.state.noteArray.splice(key, 1);
     this.setState({ noteArray: this.state.noteArray });
+    alert("TASK COMPLETE!");
   }
 }
 
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 100
   },
-  footer: { position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10 },
+  footer: { position: "absolute", bottom: 0, left: 0, right: 0 },
   textInput: {
     alignSelf: "stretch",
     color: "yellow",
@@ -133,9 +134,9 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingRight: 100,
     borderBottomWidth: 2,
-    borderBottomColor: "#fc5c65",
+    borderBottomColor: "#25CCF7",
     borderTopWidth: 2,
-    borderTopColor: "#fc5c65",
+    borderTopColor: "#25CCF7",
     color: "white",
     fontSize: 30
   },
@@ -157,6 +158,6 @@ const styles = StyleSheet.create({
     right: 10
   },
   noteDeleteText: {
-    color: "yellow"
+    color: "white"
   }
 });
