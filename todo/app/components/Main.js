@@ -15,7 +15,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 export default class Main extends React.Component {
   saveData = () => {
-    alert("heller");
+    alert("hello");
   };
   constructor(props) {
     super(props);
