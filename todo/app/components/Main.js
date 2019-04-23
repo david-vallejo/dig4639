@@ -5,12 +5,18 @@ import {
   View,
   TextInput,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  AsyncStorage
 } from "react-native";
 import Note from "./Note";
+
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 export default class Main extends React.Component {
+  saveData = () => {
+    alert("heller");
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +42,7 @@ export default class Main extends React.Component {
           <FontAwesome name="pencil" size={42} color="#25CCF7" />
         </View>
         <ScrollView style={styles.scrollContainer}>{notes}</ScrollView>
-        <View style={styles.footer}>
+        <KeyboardAvoidingView style={styles.footer} behavior="padding" enabled>
           <TextInput
             style={styles.textInput}
             onChangeText={noteText => this.setState({ noteText })}
@@ -44,30 +50,39 @@ export default class Main extends React.Component {
             placeholder="What To do.. "
             placeholderTextColor="#25CCF7"
           />
-        </View>
-        <TouchableOpacity
-          onPress={this.addNote.bind(this)}
-          style={styles.addButton}
-        >
-          <FontAwesome name="plus-circle" size={82} color="#25CCF7" />
-        </TouchableOpacity>
+          <KeyboardAvoidingView style={{}} behavior="padding" enabled>
+            <TouchableOpacity
+              onPress={this.addNote.bind(this)}
+              style={styles.addButton}
+            >
+              <FontAwesome name="plus-circle" size={82} color="#25CCF7" />
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
 
   addNote() {
     if (this.state.noteText) {
-      var d = new Date();
+      function weekDay() {
+        var d = new Date();
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        return weekday[d.getDay()];
+      }
+      var today = weekDay();
+      var day = Date(day);
       var f = this.state.noteText;
       this.state.noteArray.push({
-        date:
-          d.getFullYear() +
-          "/" +
-          (d.getMonth() + 1) +
-          "/" +
-          d.getDate() +
-          "   " +
-          f
+        date: today + "   " + f
       });
       this.setState({ noteArray: this.state.noteArray });
       this.setState({ noteText: "" });
@@ -76,9 +91,13 @@ export default class Main extends React.Component {
   deleteNote(key) {
     this.state.noteArray.splice(key, 1);
     this.setState({ noteArray: this.state.noteArray });
-    alert("TASK COMPLETE!");
+    alert(" 🎉🎉🎉TASK COMPLETED!🎉🎉🎉");
   }
 }
+saveData = () => {
+  const noteArray = this.setState({ noteArray: this.state.noteArray });
+  const noteText = this.setState({ noteText: "" });
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -105,10 +124,15 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 100
   },
-  footer: { position: "absolute", bottom: 0, left: 0, right: 0 },
+  footer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "stretch",
+    justifyContent: "space-between"
+  },
   textInput: {
     alignSelf: "stretch",
-    color: "yellow",
+    color: "#25CCF7",
     backgroundColor: "#2C3A47",
     borderTopWidth: 10,
     borderTopColor: "#2C3A47",
@@ -120,7 +144,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 11,
     right: 20,
-    bottom: 120,
+    bottom: 10,
     height: 90,
     width: 90,
     borderRadius: 50,
